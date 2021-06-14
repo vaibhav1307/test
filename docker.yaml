@@ -1,0 +1,18 @@
+- hosts:
+        - vsr
+  tasks:
+          - name: Update packages
+            shell: apt update
+            become: yes
+          - name: Install prerequisite packages
+            shell: apt install apt-transport-https ca-certificates curl software-properties-common -y
+            become: yes
+          - name: Install docker
+            shell: apt install docker.io -y
+            become: yes
+          - name: Enable service docker
+            shell: systemctl enable docker
+            become: yes
+          - name: Add user to the docker group
+            shell: usermod -aG docker ubuntu
+            become: yes

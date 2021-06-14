@@ -1,0 +1,27 @@
+ubuntu@ip-172-31-31-113:/etc/ansible$ ansible-playbook docker.yaml
+
+PLAY [vsr] **********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************
+[DEPRECATION WARNING]: Distribution Ubuntu 18.04 on host slave should use /usr/bin/python3, but is using /usr/bin/python for backward compatibility with prior Ansible releases. A future
+Ansible release will default to using the discovered platform python for this host. See https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information. This feature will be removed in version 2.12. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [slave]
+
+TASK [Update packages] **********************************************************************************************************************************************************************
+changed: [slave]
+
+TASK [Install prerequisite packages] ********************************************************************************************************************************************************
+changed: [slave]
+
+TASK [Install docker] ***********************************************************************************************************************************************************************
+changed: [slave]
+
+TASK [Enable service docker] ****************************************************************************************************************************************************************
+changed: [slave]
+
+TASK [Add user to the docker group] *********************************************************************************************************************************************************
+changed: [slave]
+
+PLAY RECAP **********************************************************************************************************************************************************************************
+slave                      : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
