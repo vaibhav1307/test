@@ -1,0 +1,463 @@
+ubuntu@ip-172-31-31-113:/etc/ansible$ ansible-playbook server-hardening.yaml -e 'ansible_python_interpreter=/usr/bin/python3'
+
+PLAY [localhost] ****************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Fetch OS dependent variables] *************************************************************************************************************************
+ok: [localhost] => (item=/home/ubuntu/.ansible/collections/ansible_collections/devsec/hardening/roles/os_hardening/vars/Debian.yml)
+
+TASK [devsec.hardening.os_hardening : Set OS dependent variables, if not already defined by user] *******************************************************************************************
+ok: [localhost] => (item={u'key': u'os_auth_sys_gid_max', u'value': 999})
+ok: [localhost] => (item={u'key': u'os_auth_sys_uid_min', u'value': 100})
+ok: [localhost] => (item={u'key': u'modprobe_package', u'value': u'kmod'})
+ok: [localhost] => (item={u'key': u'os_auth_gid_min', u'value': 1000})
+ok: [localhost] => (item={u'key': u'tally2_path', u'value': u'/usr/share/pam-configs/tally2'})
+ok: [localhost] => (item={u'key': u'os_shadow_perms', u'value': {u'owner': u'root', u'group': u'shadow', u'mode': u'0640'}})
+ok: [localhost] => (item={u'key': u'os_auth_sys_uid_max', u'value': 999})
+ok: [localhost] => (item={u'key': u'os_auth_sys_gid_min', u'value': 100})
+ok: [localhost] => (item={u'key': u'os_passwd_perms', u'value': {u'owner': u'root', u'group': u'root', u'mode': u'0644'}})
+ok: [localhost] => (item={u'key': u'os_packages_pam_ccreds', u'value': u'libpam-ccreds'})
+ok: [localhost] => (item={u'key': u'os_env_umask', u'value': u'027'})
+ok: [localhost] => (item={u'key': u'hidepid_option', u'value': u'2'})
+ok: [localhost] => (item={u'key': u'auditd_package', u'value': u'auditd'})
+ok: [localhost] => (item={u'key': u'passwdqc_path', u'value': u'/usr/share/pam-configs/passwdqc'})
+ok: [localhost] => (item={u'key': u'os_auth_uid_min', u'value': 1000})
+ok: [localhost] => (item={u'key': u'os_nologin_shell_path', u'value': u'/usr/sbin/nologin'})
+ok: [localhost] => (item={u'key': u'os_useradd_mail_dir', u'value': u'/var/mail'})
+
+TASK [devsec.hardening.os_hardening : Install auditd package | package-08] ******************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure auditd | package-08] ************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Find cron files and directories] **********************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Ensure permissions on cron files and directories are configured] **************************************************************************************
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 1, u'issock': False, u'mtime': 1510810159.0, u'gr_name': u'root', u'path': u'/etc/crontab', u'xusr': False, u'atime': 1623426108.392, u'inode': 834, u'isgid': False, u'size': 722, u'isdir': False, u'wgrp': False, u'ctime': 1624003696.0229177, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': True, u'isfifo': False, u'mode': u'0600', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 2, u'issock': False, u'mtime': 1618572409.4687104, u'gr_name': u'root', u'path': u'/etc/cron.monthly', u'xusr': True, u'atime': 1618572425.1699028, u'inode': 1321, u'isgid': False, u'size': 4096, u'isdir': True, u'wgrp': False, u'ctime': 1624003696.1909194, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 2, u'issock': False, u'mtime': 1623480290.133903, u'gr_name': u'root', u'path': u'/etc/cron.daily', u'xusr': True, u'atime': 1623997501.1259215, u'inode': 412, u'isgid': False, u'size': 4096, u'isdir': True, u'wgrp': False, u'ctime': 1624003696.3549209, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 2, u'issock': False, u'mtime': 1618572646.7990754, u'gr_name': u'root', u'path': u'/etc/cron.weekly', u'xusr': True, u'atime': 1623566821.3767018, u'inode': 1323, u'isgid': False, u'size': 4096, u'isdir': True, u'wgrp': False, u'ctime': 1624003696.5189226, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 2, u'issock': False, u'mtime': 1618572616.0686612, u'gr_name': u'root', u'path': u'/etc/cron.d', u'xusr': True, u'atime': 1623426108.416, u'inode': 1315, u'isgid': False, u'size': 4096, u'isdir': True, u'wgrp': False, u'ctime': 1624003696.678924, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+ok: [localhost] => (item={u'islnk': False, u'uid': 0, u'rgrp': False, u'xoth': False, u'rusr': True, u'woth': False, u'nlink': 2, u'issock': False, u'mtime': 1618572409.4687104, u'gr_name': u'root', u'path': u'/etc/cron.hourly', u'xusr': True, u'atime': 1624004221.9961424, u'inode': 1319, u'isgid': False, u'size': 4096, u'isdir': True, u'wgrp': False, u'ctime': 1624003696.8429258, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'roth': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
+
+TASK [devsec.hardening.os_hardening : Create limits.d-directory if it does not exist | sysctl-31a, sysctl-31b] ******************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Create additional limits config file -> 10.hardcore.conf | sysctl-31a, sysctl-31b] ********************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Set 10.hardcore.conf perms to 0400 and root ownership] ************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove 10.hardcore.conf config file] ******************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Create login.defs | os-05, os-05b] ********************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Find files with write-permissions for group] **********************************************************************************************************
+ok: [localhost] => (item=/usr/local/sbin)
+ok: [localhost] => (item=/usr/local/bin)
+ok: [localhost] => (item=/usr/sbin)
+ok: [localhost] => (item=/usr/bin)
+ok: [localhost] => (item=/sbin)
+ok: [localhost] => (item=/bin)
+
+TASK [devsec.hardening.os_hardening : Minimize access on found files] ***********************************************************************************************************************
+
+TASK [devsec.hardening.os_hardening : Change shadow ownership to root and mode to 0600 | os-02] *********************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Change passwd ownership to root and mode to 0644 | os-03] *********************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Change su-binary to only be accessible to user and group root] ****************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Set option hidepid for proc filesystem] ***************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Gather package facts] *********************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove pam ccreds to disable password caching] ********************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Install the package for strong password checking] *****************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure passwdqc] ***********************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Install tally2] ***************************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure tally2] *************************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete tally2 when retries is 0] **********************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete tally2] ****************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : create tally directory] *******************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure faillock] ***********************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure faillock pam] *******************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure faillock pam authfail] **********************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete faillock when retries is 0] ********************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete faillock authfail when retries is 0] ***********************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Update pam on Debian systems] *************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove passwdqc] **************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Install sssd-clients] *********************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure passwdqc and faillock via central system-auth config] ***************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Enable our config for system-auth] ********************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure passwdqc and faillock via central password-auth config] *************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Enable our config for password-auth] ******************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : NSA 2.3.3.5 Upgrade Password Hashing Algorithm to SHA-512] ********************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Install modprobe to disable filesystems | os-10] ******************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Check if efi is installed] ****************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove vfat from fs-list if efi is used] **************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove used filesystems from fs-list] *****************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Disable unused filesystems | os-10] *******************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Add pinerolo_profile.sh to profile.d] *****************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove pinerolo_profile.sh from profile.d] ************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Create securetty] *************************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove suid/sgid bit from binaries in blacklist | os-06] **********************************************************************************************
+ok: [localhost] => (item=/usr/bin/rcp)
+ok: [localhost] => (item=/usr/bin/rlogin)
+ok: [localhost] => (item=/usr/bin/rsh)
+ok: [localhost] => (item=/usr/libexec/openssh/ssh-keysign)
+ok: [localhost] => (item=/usr/lib/openssh/ssh-keysign)
+ok: [localhost] => (item=/sbin/netreport)
+ok: [localhost] => (item=/usr/sbin/usernetctl)
+ok: [localhost] => (item=/usr/sbin/userisdnctl)
+ok: [localhost] => (item=/usr/sbin/pppd)
+ok: [localhost] => (item=/usr/bin/lockfile)
+ok: [localhost] => (item=/usr/bin/mail-lock)
+ok: [localhost] => (item=/usr/bin/mail-unlock)
+ok: [localhost] => (item=/usr/bin/mail-touchlock)
+ok: [localhost] => (item=/usr/bin/dotlockfile)
+ok: [localhost] => (item=/usr/bin/arping)
+ok: [localhost] => (item=/usr/sbin/uuidd)
+ok: [localhost] => (item=/usr/bin/mtr)
+ok: [localhost] => (item=/usr/lib/evolution/camel-lock-helper-1.2)
+ok: [localhost] => (item=/usr/lib/pt_chown)
+ok: [localhost] => (item=/usr/lib/eject/dmcrypt-get-device)
+ok: [localhost] => (item=/usr/lib/mc/cons.saver)
+
+TASK [devsec.hardening.os_hardening : Find binaries with suid/sgid set | os-06] *************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Gather files from which to remove suids/sgids and remove system white-listed files | os-06] ***********************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove suid/sgid bit from all binaries except in system and user whitelist | os-06] *******************************************************************
+
+TASK [devsec.hardening.os_hardening : Protect sysctl.conf] **********************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Set Daemon umask, do config for rhel-family | NSA 2.2.4.1] ********************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Install initramfs-tools] ******************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Rebuild initramfs with starting pack of modules, if module loading at runtime is disabled] ************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Create a combined sysctl-dict if overwrites are defined] **********************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Change various sysctl-settings, look at the sysctl-vars file for documentation] ***********************************************************************
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_ra_rtr_pref', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_ra_pinfo', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.router_solicitations', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.arp_ignore', u'value': 1})
+ok: [localhost] => (item={u'key': u'fs.protected_hardlinks', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.autoconf', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.dad_transmits', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.ip_forward', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.icmp_echo_ignore_broadcasts', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.all.forwarding', u'value': 0})
+ok: [localhost] => (item={u'key': u'kernel.kptr_restrict', u'value': 2})
+ok: [localhost] => (item={u'key': u'kernel.kexec_load_disabled', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.send_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'vm.mmap_rnd_compat_bits', u'value': 16})
+ok: [localhost] => (item={u'key': u'vm.mmap_rnd_bits', u'value': 32})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.secure_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'kernel.randomize_va_space', u'value': 2})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.rp_filter', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.tcp_rfc1337', u'value': 1})
+ok: [localhost] => (item={u'key': u'fs.protected_symlinks', u'value': 1})
+ok: [localhost] => (item={u'key': u'kernel.sysrq', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.icmp_ratelimit', u'value': 100})
+ok: [localhost] => (item={u'key': u'kernel.yama.ptrace_scope', u'value': 1})
+ok: [localhost] => (item={u'key': u'vm.mmap_min_addr', u'value': 65536})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.log_martians', u'value': 1})
+ok: [localhost] => (item={u'key': u'fs.suid_dumpable', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.accept_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.icmp_ignore_bogus_error_responses', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.all.accept_ra', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_source_route', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.accept_source_route', u'value': 0})
+ok: [localhost] => (item={u'key': u'kernel.core_uses_pid', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_ra', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.log_martians', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.all.accept_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.tcp_syncookies', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.icmp_ratemask', u'value': 88089})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_ra_defrtr', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.tcp_timestamps', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.max_addresses', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.accept_source_route', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.shared_media', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.all.accept_source_route', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv6.conf.default.accept_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.secure_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.shared_media', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.arp_announce', u'value': 2})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.rp_filter', u'value': 1})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.default.send_redirects', u'value': 0})
+ok: [localhost] => (item={u'key': u'net.ipv4.conf.all.accept_redirects', u'value': 0})
+
+TASK [devsec.hardening.os_hardening : Change various sysctl-settings on rhel6-hosts or older, look at the sysctl-vars file for documentation] ***********************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Apply ufw defaults] ***********************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Get UID_MIN from login.defs] **************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Calculate UID_MAX from UID_MIN by substracting 1] *****************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Set UID_MAX on Debian-systems if no login.defs exist] *************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Set UID_MAX on other systems if no login.defs exist] **************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Get all system accounts] ******************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove always ignored system accounts from list] ******************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Change system accounts not on the user provided ignore-list] ******************************************************************************************
+ok: [localhost] => (item=daemon)
+ok: [localhost] => (item=bin)
+ok: [localhost] => (item=sys)
+ok: [localhost] => (item=games)
+ok: [localhost] => (item=man)
+ok: [localhost] => (item=lp)
+ok: [localhost] => (item=mail)
+ok: [localhost] => (item=news)
+ok: [localhost] => (item=uucp)
+ok: [localhost] => (item=proxy)
+ok: [localhost] => (item=www-data)
+ok: [localhost] => (item=backup)
+ok: [localhost] => (item=list)
+ok: [localhost] => (item=irc)
+ok: [localhost] => (item=gnats)
+ok: [localhost] => (item=systemd-network)
+ok: [localhost] => (item=systemd-resolve)
+ok: [localhost] => (item=syslog)
+ok: [localhost] => (item=messagebus)
+ok: [localhost] => (item=_apt)
+ok: [localhost] => (item=lxd)
+ok: [localhost] => (item=uuidd)
+ok: [localhost] => (item=dnsmasq)
+ok: [localhost] => (item=landscape)
+ok: [localhost] => (item=sshd)
+ok: [localhost] => (item=pollinate)
+
+TASK [devsec.hardening.os_hardening : get all home directories in /home, but skip ignored users] ********************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : set ownership of /home directories to 0700] ***********************************************************************************************************
+ok: [localhost] => (item={u'rusr': True, u'uid': 1000, u'rgrp': False, u'xoth': False, u'islnk': False, u'woth': False, u'nlink': 8, u'issock': False, u'mtime': 1624003033.0803032, u'gr_name': u'ubuntu', u'path': u'/home/ubuntu', u'xusr': True, u'atime': 1624010218.302495, u'inode': 256079, u'isgid': False, u'size': 4096, u'isdir': True, u'ctime': 1624003738.6753418, u'roth': False, u'isblk': False, u'xgrp': False, u'isuid': False, u'dev': 51713, u'wgrp': False, u'isreg': False, u'isfifo': False, u'mode': u'0700', u'pw_name': u'ubuntu', u'gid': 1000, u'ischr': False, u'wusr': True})
+
+TASK [devsec.hardening.os_hardening : Get user accounts | os-09] ****************************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete rhosts-files from system | os-09] **************************************************************************************************************
+ok: [localhost] => (item=root)
+ok: [localhost] => (item=daemon)
+ok: [localhost] => (item=bin)
+ok: [localhost] => (item=sys)
+ok: [localhost] => (item=sync)
+ok: [localhost] => (item=games)
+ok: [localhost] => (item=man)
+ok: [localhost] => (item=lp)
+ok: [localhost] => (item=mail)
+ok: [localhost] => (item=news)
+ok: [localhost] => (item=uucp)
+ok: [localhost] => (item=proxy)
+ok: [localhost] => (item=www-data)
+ok: [localhost] => (item=backup)
+ok: [localhost] => (item=list)
+ok: [localhost] => (item=irc)
+ok: [localhost] => (item=gnats)
+ok: [localhost] => (item=nobody)
+ok: [localhost] => (item=systemd-network)
+ok: [localhost] => (item=systemd-resolve)
+ok: [localhost] => (item=syslog)
+ok: [localhost] => (item=messagebus)
+ok: [localhost] => (item=_apt)
+ok: [localhost] => (item=lxd)
+ok: [localhost] => (item=uuidd)
+ok: [localhost] => (item=dnsmasq)
+ok: [localhost] => (item=landscape)
+ok: [localhost] => (item=sshd)
+ok: [localhost] => (item=pollinate)
+ok: [localhost] => (item=ubuntu)
+
+TASK [devsec.hardening.os_hardening : Delete hosts.equiv from system | os-01] ***************************************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Delete .netrc-files from system | os-09] **************************************************************************************************************
+ok: [localhost] => (item=root)
+ok: [localhost] => (item=daemon)
+ok: [localhost] => (item=bin)
+ok: [localhost] => (item=sys)
+ok: [localhost] => (item=sync)
+ok: [localhost] => (item=games)
+ok: [localhost] => (item=man)
+ok: [localhost] => (item=lp)
+ok: [localhost] => (item=mail)
+ok: [localhost] => (item=news)
+ok: [localhost] => (item=uucp)
+ok: [localhost] => (item=proxy)
+ok: [localhost] => (item=www-data)
+ok: [localhost] => (item=backup)
+ok: [localhost] => (item=list)
+ok: [localhost] => (item=irc)
+ok: [localhost] => (item=gnats)
+ok: [localhost] => (item=nobody)
+ok: [localhost] => (item=systemd-network)
+ok: [localhost] => (item=systemd-resolve)
+ok: [localhost] => (item=syslog)
+ok: [localhost] => (item=messagebus)
+ok: [localhost] => (item=_apt)
+ok: [localhost] => (item=lxd)
+ok: [localhost] => (item=uuidd)
+ok: [localhost] => (item=dnsmasq)
+ok: [localhost] => (item=landscape)
+ok: [localhost] => (item=sshd)
+ok: [localhost] => (item=pollinate)
+ok: [localhost] => (item=ubuntu)
+
+TASK [devsec.hardening.os_hardening : Remove unused repositories] ***************************************************************************************************************************
+skipping: [localhost] => (item=CentOS-Debuginfo)
+skipping: [localhost] => (item=CentOS-Media)
+skipping: [localhost] => (item=CentOS-Vault)
+
+TASK [devsec.hardening.os_hardening : Get yum-repository-files] *****************************************************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Activate gpg-check for yum-repository-files] **********************************************************************************************************
+
+TASK [devsec.hardening.os_hardening : Activate gpg-check for config files] ******************************************************************************************************************
+skipping: [localhost] => (item=/etc/yum.conf)
+skipping: [localhost] => (item=/etc/dnf/dnf.conf)
+skipping: [localhost] => (item=/etc/yum/pluginconf.d/rhnplugin.conf)
+
+TASK [devsec.hardening.os_hardening : Remove deprecated or insecure packages | package-01 - package-09] *************************************************************************************
+skipping: [localhost]
+
+TASK [devsec.hardening.os_hardening : Remove deprecated or insecure packages | package-01 - package-09] *************************************************************************************
+ok: [localhost]
+
+TASK [devsec.hardening.os_hardening : Configure selinux | selinux-01] ***********************************************************************************************************************
+skipping: [localhost]
+
+TASK [Install firewalld] ********************************************************************************************************************************************************************
+[WARNING]: Consider using the apt module rather than running 'apt-get'.  If you need to use command because apt is insufficient you can add 'warn: false' to this command task or set
+'command_warnings=False' in ansible.cfg to get rid of this message.
+changed: [localhost]
+
+TASK [Enable firewalld service] *************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Configure firewalld] ******************************************************************************************************************************************************************
+changed: [localhost] => (item=6443/tcp)
+changed: [localhost] => (item=10250/tcp)
+
+TASK [Enable IPTables bridge] ***************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Install fail2ban] *********************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Enable fail2ban service] **************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Disallow Root SSH Login] **************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Disallow SSH Password Authentication] *************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Restart SSH] **************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Remove undesirable packages] **********************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Stop and disable unnecessary services] ************************************************************************************************************************************************
+failed: [localhost] (item=postfix) => {"ansible_loop_var": "item", "changed": false, "item": "postfix", "msg": "Could not find the requested service postfix: host"}
+failed: [localhost] (item=telnet) => {"ansible_loop_var": "item", "changed": false, "item": "telnet", "msg": "Could not find the requested service telnet: host"}
+...ignoring
+
+PLAY RECAP **********************************************************************************************************************************************************************************
+localhost                  : ok=59   changed=7    unreachable=0    failed=0    skipped=32   rescued=0    ignored=1
